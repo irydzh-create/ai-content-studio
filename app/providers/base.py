@@ -5,6 +5,9 @@ from abc import ABC, abstractmethod
 
 class LLMProvider(ABC):
     @abstractmethod
-    def generate(self, system_prompt: str, user_prompt: str) -> str:
-        """Return generated text for a prompt pair."""
-
+    def generate(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        """Вернуть текст, созданный языковой моделью."""

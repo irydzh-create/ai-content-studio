@@ -1,2 +1,1 @@
-"""Content generation modules."""
-
+"""Генераторы контента."""

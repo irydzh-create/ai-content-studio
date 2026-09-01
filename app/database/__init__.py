@@ -1,2 +1,1 @@
-"""SQLite persistence for generated content."""
-
+"""Работа с базой данных SQLite."""

@@ -1,2 +1,1 @@
-"""AI Content Studio package."""
-
+"""AI Content Studio."""

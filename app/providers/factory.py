@@ -7,11 +7,17 @@ from app.providers.template import TemplateProvider
 
 
 def build_provider(settings: Settings) -> LLMProvider:
+    if settings.ai_provider == "template":
+        return TemplateProvider()
+
     if settings.ai_provider in {"ollama", "openai"}:
         return OpenAICompatibleProvider(
             base_url=settings.base_url,
             api_key=settings.api_key,
             model=settings.model,
         )
-    return TemplateProvider()
 
+    raise RuntimeError(
+        f"неизвестный AI_PROVIDER: {settings.ai_provider}. "
+        "Используй template или ollama."
+    )

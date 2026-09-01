@@ -7,7 +7,12 @@ from pathlib import Path
 from app.models import ContentPack
 
 
-def init_db(database_path: str) -> None:
+def initialize_database(database_path: str) -> None:
+    Path(database_path).parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
     with sqlite3.connect(database_path) as connection:
         connection.execute(
             """
@@ -30,32 +35,57 @@ def init_db(database_path: str) -> None:
         )
 
 
-def save_content_pack(database_path: str, pack: ContentPack) -> int:
-    Path(database_path).parent.mkdir(parents=True, exist_ok=True)
-    init_db(database_path)
+def save_content_pack(
+    database_path: str,
+    content_pack: ContentPack,
+) -> int:
+    initialize_database(database_path)
+
     with sqlite3.connect(database_path) as connection:
         cursor = connection.execute(
             """
             INSERT INTO content_packs (
-                topic, audience, platform, hook, reel_script, carousel_slides,
-                video_prompts, caption, hashtags, cta, quality_notes, created_at
+                topic,
+                audience,
+                platform,
+                hook,
+                reel_script,
+                carousel_slides,
+                video_prompts,
+                caption,
+                hashtags,
+                cta,
+                quality_notes,
+                created_at
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                pack.topic,
-                pack.audience,
-                pack.platform,
-                pack.hook,
-                pack.reel_script,
-                json.dumps(pack.carousel_slides, ensure_ascii=False),
-                json.dumps(pack.video_prompts, ensure_ascii=False),
-                pack.caption,
-                json.dumps(pack.hashtags, ensure_ascii=False),
-                pack.cta,
-                json.dumps(pack.quality_notes, ensure_ascii=False),
-                pack.created_at,
+                content_pack.topic,
+                content_pack.audience,
+                content_pack.platform,
+                content_pack.hook,
+                content_pack.reel_script,
+                json.dumps(
+                    content_pack.carousel_slides,
+                    ensure_ascii=False,
+                ),
+                json.dumps(
+                    content_pack.video_prompts,
+                    ensure_ascii=False,
+                ),
+                content_pack.caption,
+                json.dumps(
+                    content_pack.hashtags,
+                    ensure_ascii=False,
+                ),
+                content_pack.cta,
+                json.dumps(
+                    content_pack.quality_notes,
+                    ensure_ascii=False,
+                ),
+                content_pack.created_at,
             ),
         )
-        return int(cursor.lastrowid)
 
+        return int(cursor.lastrowid)

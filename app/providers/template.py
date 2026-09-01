@@ -4,6 +4,11 @@ from app.providers.base import LLMProvider
 
 
 class TemplateProvider(LLMProvider):
-    def generate(self, system_prompt: str, user_prompt: str) -> str:
-        return ""
+    """Бесплатный режим без подключения языковой модели."""
 
+    def generate(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+    ) -> str:
+        return ""

@@ -1,2 +1,2 @@
-# The MVP uses only the Python standard library.
-# Optional future dependencies can be added here.
+# Проект использует только стандартную библиотеку Python.
+python-telegram-bot==21.6

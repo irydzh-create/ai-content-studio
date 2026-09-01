@@ -20,4 +20,3 @@ class ContentPack:
     created_at: str = field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()
     )
-
